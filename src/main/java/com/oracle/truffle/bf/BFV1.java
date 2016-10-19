@@ -80,7 +80,7 @@ public class BFV1 extends BFImpl {
 
         @ExplodeLoop
         private void executeChildren(Memory memory, VirtualFrame vf) {
-            for (Node n : getChildren()) {
+            for (Node n : nodes) {
                 if (n instanceof BlockNode) {
                     ((BlockNode) n).execute(vf);
                 } else {
