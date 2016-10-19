@@ -1,6 +1,7 @@
 
 package com.oracle.truffle.bf;
 
+import com.oracle.truffle.api.CompilerDirectives;
 import com.oracle.truffle.api.RootCallTarget;
 import com.oracle.truffle.api.Truffle;
 import com.oracle.truffle.api.TruffleLanguage;
@@ -133,14 +134,24 @@ public class BFV1 extends BFImpl {
                         }
                         break;
                     case IN:
-                        memory.cells[memory.index] = memory.in.read();
+                        memory.cells[memory.index] = read(memory);
                         break;
                     case OUT:
-                        memory.out.write(memory.cells[memory.index]);
+                        write(memory);
                         break;
                     default:
                         assert false;
                 }
+        }
+
+        @CompilerDirectives.TruffleBoundary
+        private static int read(Memory memory) throws IOException {
+            return memory.in.read();
+        }
+
+        @CompilerDirectives.TruffleBoundary
+        private static void write(Memory memory) throws IOException {
+            memory.out.write(memory.cells[memory.index]);
         }
     }
 }
