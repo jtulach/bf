@@ -3,7 +3,7 @@
 JAVACMD=${JAVACMD:=./graalvm/bin/java}
 
 PROGRAM_ARGS=""
-JAVA_ARGS=" -Dgraal.MaximumEscapeAnalysisArrayLength=128 -Dgraal.TruffleOSRCompilationThreshold=1000 -Dgraal.TruffleCompilationThreshold=2 -Dgraal.TruffleMinInvokeThreshold=2 "
+JAVA_ARGS="-Dtruffle.class.path.append=`pwd`/target/classes -Dgraal.MaximumEscapeAnalysisArrayLength=128 -Dgraal.TruffleOSRCompilationThreshold=1000 -Dgraal.TruffleCompilationThreshold=2 -Dgraal.TruffleMinInvokeThreshold=2 "
 
 for opt in "$@"
 do
@@ -25,4 +25,4 @@ do
 done
 
 #echo "$JAVACMD $JAVA_ARGS -polyglot -cp ./target/classes com.oracle.truffle.bf.BFMain $PROGRAM_ARGS"
-$JAVACMD $JAVA_ARGS -polyglot -cp ./target/classes com.oracle.truffle.bf.BFMain $PROGRAM_ARGS
+$JAVACMD $JAVA_ARGS -cp ./target/classes com.oracle.truffle.bf.BFMain $PROGRAM_ARGS
